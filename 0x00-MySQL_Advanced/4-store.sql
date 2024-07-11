@@ -1,16 +1,13 @@
 -- Buy buy buy
-DELIMITER //
+DELIMITER $$
 
-CREATE TRIGGER decrease_quantity_after_order
-AFTER INSERT ON mydatabase.orders FOR EACH ROW 
+CREATE TRIGGER decrease_item_quantity
+AFTER INSERT ON orders
+FOR EACH ROW
 BEGIN
-    DECLARE item_id INT;
-    DECLARE order_quantity INT;
-    
-    SELECT NEW.item_id, NEW.quantity INTO item_id, order_quantity;
+  UPDATE items
+  SET quantity = quantity - NEW.quantity
+  WHERE item_id = NEW.item_id;
+END $$
 
-    UPDATE mydatabase.items
-    SET quantity = quantity - order_quantity
-    WHERE id = item_id;
-END //
 DELIMITER ;
