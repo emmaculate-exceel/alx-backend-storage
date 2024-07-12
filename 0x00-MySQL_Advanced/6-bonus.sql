@@ -1,22 +1,25 @@
--- sql script that creates addBonus procedures
-
+-- Creates a stored procedure AddBonus that adds a new
+-- correction for a student.
+DROP PROCEDURE IF EXISTS AddBonus;
 DELIMITER $$
-
-CREATE PROCEDURE AddBonus(IN p_user_id INT, IN p_project_name VARCHAR(255), IN p_score DECIMAL(10,2))
+CREATE PROCEDURE AddBonus (user_id INT, project_name VARCHAR(255), score FLOAT)
 BEGIN
-  DECLARE p_project_id INT;
+    DECLARE project_count INT DEFAULT 0;
+    DECLARE project_id INT DEFAULT 0;
 
-  IF NOT EXISTS (SELECT 1 FROM users WHERE id = p_user_id) THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'User not found';
-  END IF;
-
-  SELECT id INTO p_project_id FROM projects WHERE name = p_project_name;
-  IF NOT FOUND THEN
-    INSERT INTO projects (name) VALUES (p_project_name);
-    SELECT LAST_INSERT_ID() INTO p_project_id;
-  END IF;
-
-  INSERT INTO corrections (user_id, project_id, score) VALUES (p_user_id, p_project_id, p_score);
+    SELECT COUNT(id)
+        INTO project_count
+        FROM projects
+        WHERE name = project_name;
+    IF project_count = 0 THEN
+        INSERT INTO projects(name)
+            VALUES(project_name);
+    END IF;
+    SELECT id
+        INTO project_id
+        FROM projects
+        WHERE name = project_name;
+    INSERT INTO corrections(user_id, project_id, score)
+        VALUES (user_id, project_id, score);
 END $$
-
 DELIMITER ;
