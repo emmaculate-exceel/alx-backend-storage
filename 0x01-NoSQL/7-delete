@@ -1,0 +1,3 @@
+// delete from colections
+
+db.school.delete({ name: 'Holberton school' })
