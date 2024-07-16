@@ -1,3 +1,3 @@
 //writing a script that list all databases
 
-show db
+show dbs;
