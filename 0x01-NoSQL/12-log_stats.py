@@ -7,8 +7,10 @@ from pymongo import MongoClient
 
 if __name__ == '__main__':
     client_con = MongoClient()
-    nginx_col = client_con.logs.nginx.count_documents({})
-    print(f"{nginx_col} logs")
+    nginx_col = client_con.logs.nginx
+    nginx_count = nginx_col.count_documents({})
+    print(f"{nginx_count} logs")
+    
     print("Methods:")
 
     for method in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
