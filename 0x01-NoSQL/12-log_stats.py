@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     for method in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
         count = nginx_col.count_documents({'method': method})
-        print(f'{\tmethod {method}: {count}')
+        print(f'\tmethod {method}: {count}')
 
     nb_counts = nginx_col.count_documents({'method': 'GET', 'path': '/status'})
     print(f'{nb_counts} status check')
