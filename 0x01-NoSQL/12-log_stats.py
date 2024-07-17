@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """ nginx logs """
+
+
 from pymongo import MongoClient
 
 
@@ -13,6 +15,5 @@ if __name__ == '__main__':
         count = nginx_col.count_documents({'method': method})
         print(f'{\tmethod {method}: {count}')
 
-    nb_counts = nginx_col.count_documents({'method': 'GET'},
-                                          {'path': '/status'})
+    nb_counts = nginx_col.count_documents({'method': 'GET', 'path': '/status'})
     print(f'{nb_counts} status check')
