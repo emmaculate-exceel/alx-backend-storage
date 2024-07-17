@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """ nginx logs """
 
-
+import pymongo
 from pymongo import MongoClient
 
 
-def nginx_log():
+if __name__ == '__main__':
     client_con = MongoClient('mongodb://127.0.0.1:27017')
     nginx_col = client_con.logs.nginx
     nginx_count = nginx_col.count_documents({})
