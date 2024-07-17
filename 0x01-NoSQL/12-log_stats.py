@@ -2,6 +2,7 @@
 """ nginx logs """
 from pymongo import MongoClient
 
+
 if __name__ == '__main__':
     client_con = MongoClient()
     nginx_col = client_con.logs.nginx.count_documents({})
