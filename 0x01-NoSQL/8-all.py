@@ -4,4 +4,4 @@
 
 def list_all(mongo_collection):
     """ function to list all collection """
-    return mongo.collection.find()
+    return mongo_collection.find()
