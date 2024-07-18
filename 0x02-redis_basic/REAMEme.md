@@ -1,0 +1,1 @@
+redis basic tutorial for storage
